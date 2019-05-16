@@ -1,0 +1,39 @@
+/PROG  W2_CHUCK_OPN
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 406;
+CREATE		= DATE 19-03-25  TIME 14:49:32;
+MODIFIED	= DATE 19-03-25  TIME 14:53:20;
+FILE_NAME	= W1_CHUCK;
+VERSION		= 0;
+LINE_COUNT	= 15;
+MEMORY_SIZE	= 882;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  DO[47:W_2_Chuck_Close]=OFF ;
+   2:  DO[46:W_2_Chuck_Open]=ON ;
+   3:  WAIT   1.00(sec) ;
+   4:   ;
+   5:  $WAITTMOUT=200 ;
+   6:  WAIT (DI[54:W2_Chuck_Opened]) TIMEOUT,LBL[1] ;
+   7:   ;
+   8:   ;
+   9:  END ;
+  10:  LBL[1] ;
+  11:  MESSAGE[...] ;
+  12:  MESSAGE[AMERIKANER STROJA 2] ;
+  13:  MESSAGE[NIJE OTVORIO] ;
+  14:  WAIT (DI[54:W2_Chuck_Opened])    ;
+  15:  END ;
+/POS
+/END

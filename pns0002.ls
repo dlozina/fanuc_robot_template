@@ -1,0 +1,33 @@
+/PROG  PNS0002
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "HOME POSITION";
+PROG_SIZE	= 216;
+CREATE		= DATE 19-03-21  TIME 13:19:14;
+MODIFIED	= DATE 19-03-21  TIME 13:20:08;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 10;
+MEMORY_SIZE	= 548;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/MN
+   1:  WAIT 327.00(sec) ;
+   2:  ABORT ;
+   3:   ;
+   4:   ;
+   5:   ;
+   6:   ;
+   7:   ;
+   8:   ;
+   9:   ;
+  10:   ;
+/POS
+/END

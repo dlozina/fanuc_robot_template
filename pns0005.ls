@@ -1,0 +1,125 @@
+/PROG  PNS0005
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "TO H1";
+PROG_SIZE	= 1614;
+CREATE		= DATE 19-04-17  TIME 08:32:12;
+MODIFIED	= DATE 19-04-18  TIME 15:34:30;
+FILE_NAME	= PNS0004;
+VERSION		= 0;
+LINE_COUNT	= 101;
+MEMORY_SIZE	= 2138;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  !PALETA NA GRIJAC 1 ;
+   2:   ;
+   3:  OVERRIDE=30% ;
+   4:   ;
+   5:  CALL CLR_SCR    ;
+   6:  GO[1]=R[100:Job Number] ;
+   7:   ;
+   8:  !Select active pallet ;
+   9:  LBL[40] ;
+  10:  IF DI[70:Pall1 In Pos]=ON AND DI[66:Pall1 Active]=ON,JMP LBL[10] ;
+  11:  IF DI[78:Pall2 In Pos]=ON AND DI[74:Pall2 Active]=ON,JMP LBL[20] ;
+  12:  MESSAGE[PALETE NISU SPREMNE ] ;
+  13:  WAIT   1.00(sec) ;
+  14:  JMP LBL[40] ;
+  15:  END ;
+  16:   ;
+  17:  CALL CLR_SCR    ;
+  18:  !Picking from Pallet 1 ;
+  19:  LBL[10] ;
+  20:  CALL PICK_PAL1    ;
+  21:  JMP LBL[50] ;
+  22:   ;
+  23:  LBL[20] ;
+  24:  !Picking from Pallet 2 ;
+  25:  CALL PICK_PAL2    ;
+  26:  JMP LBL[50] ;
+  27:   ;
+  28:  LBL[50] ;
+  29:   ;
+  30:  UFRAME_NUM=12 ;
+  31:  UTOOL_NUM=1 ;
+  32:   ;
+  33:J PR[38:V_WELDING_1 ] 50% CNT100    ;
+  34:   ;
+  35:J PR[4:V_H1H2] 50% CNT100    ;
+  36:   ;
+  37:J PR[30:V_HEATER_1 ] 50% FINE    ;
+  38:   ;
+  39:  WAIT DI[13:PermissSpace6]=ON    ;
+  40:   ;
+  41:  UFRAME_NUM=6 ;
+  42:  UTOOL_NUM=1 ;
+  43:   ;
+  44:  R[1:CHECK SIGN GI]=(GI[31:H1 POS OFFSET]-(GI[31:H1 POS OFFSET] DIV 32786)*65536) ;
+  45:   ;
+  46:  R[10:HEATER1 X OFFS]=(135-R[43:Heater Pos]+R[1:CHECK SIGN GI]) ;
+  47:   ;
+  48:  R[12:HEATER1 Z OFFS]=R[40:Handling height]+20    ;
+  49:   ;
+  50:  CALL PR(98,R[10:HEATER1 X OFFS],0,R[12:HEATER1 Z OFFS]) ;
+  51:   ;
+  52:J PR[31:HEATER_1_REF] 30% CNT20 Offset,PR[98:OFFSET H1]    ;
+  53:   ;
+  54:  R[12:HEATER1 Z OFFS]=R[40:Handling height]+1    ;
+  55:   ;
+  56:  CALL PR(98,R[10:HEATER1 X OFFS],0,R[12:HEATER1 Z OFFS]) ;
+  57:   ;
+  58:L PR[31:HEATER_1_REF] 100mm/sec FINE Offset,PR[98:OFFSET H1]    ;
+  59:   ;
+  60:  CALL GRP_OPN    ;
+  61:   ;
+  62:  DO[52:PICK AND PLACE PLS]=PULSE,1.0sec ;
+  63:   ;
+  64:  R[109:HEAT1 X OFFS]=R[10:HEATER1 X OFFS]    ;
+  65:   ;
+  66:  R[110:HEAT1 HANDLING]=R[40:Handling height]    ;
+  67:   ;
+  68:  R[111:HEAT1 HEIGHT]=R[41:WP Height]    ;
+  69:   ;
+  70:  R[40:Handling height]=0    ;
+  71:  R[41:WP Height]=0    ;
+  72:   ;
+  73:   ;
+  74:  R[12:HEATER1 Z OFFS]=R[111:HEAT1 HEIGHT]+20    ;
+  75:   ;
+  76:  CALL PR(98,R[10:HEATER1 X OFFS],0,R[12:HEATER1 Z OFFS]) ;
+  77:   ;
+  78:L PR[31:HEATER_1_REF] 100mm/sec FINE Offset,PR[98:OFFSET H1]    ;
+  79:   ;
+  80:  !JOB DONE: GO HOME ;
+  81:   ;
+  82:  UFRAME_NUM=12 ;
+  83:  UTOOL_NUM=1 ;
+  84:   ;
+  85:J PR[30:V_HEATER_1 ] 100% CNT100    ;
+  86:J PR[4:V_H1H2] 100% CNT100    ;
+  87:   ;
+  88:J PR[38:V_WELDING_1 ] 100% CNT100    ;
+  89:J PR[1:HOME] 100% FINE    ;
+  90:   ;
+  91:  END ;
+  92:   ;
+  93:   ;
+  94:   ;
+  95:   ;
+  96:   ;
+  97:   ;
+  98:   ;
+  99:   ;
+ 100:   ;
+ 101:   ;
+/POS
+/END

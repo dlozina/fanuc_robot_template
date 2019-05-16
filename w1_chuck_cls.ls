@@ -1,0 +1,39 @@
+/PROG  W1_CHUCK_CLS
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "";
+PROG_SIZE	= 394;
+CREATE		= DATE 19-03-20  TIME 13:42:06;
+MODIFIED	= DATE 19-03-25  TIME 14:30:14;
+FILE_NAME	= GRP_CLS;
+VERSION		= 0;
+LINE_COUNT	= 15;
+MEMORY_SIZE	= 870;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/APPL
+/MN
+   1:  DO[42:W1_Chuck_Open]=OFF ;
+   2:  DO[43:W1_Chuck_Close]=ON ;
+   3:  WAIT   1.00(sec) ;
+   4:   ;
+   5:  $WAITTMOUT=200 ;
+   6:  WAIT (DI[50:W1_Chuck_Closed]) TIMEOUT,LBL[1] ;
+   7:   ;
+   8:   ;
+   9:  END ;
+  10:  LBL[1] ;
+  11:  MESSAGE[...] ;
+  12:  MESSAGE[AMERIKANER STROJA 1] ;
+  13:  MESSAGE[NIJE ZATVORIO] ;
+  14:  WAIT (DI[50:W1_Chuck_Closed])    ;
+  15:  END ;
+/POS
+/END

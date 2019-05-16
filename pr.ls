@@ -1,0 +1,29 @@
+/PROG  PR
+/ATTR
+OWNER		= MNEDITOR;
+COMMENT		= "Offset PR[X]";
+PROG_SIZE	= 246;
+CREATE		= DATE 01-04-03  TIME 23:35:34;
+MODIFIED	= DATE 13-01-25  TIME 13:07:16;
+FILE_NAME	= ;
+VERSION		= 0;
+LINE_COUNT	= 6;
+MEMORY_SIZE	= 594;
+PROTECT		= READ_WRITE;
+TCD:  STACK_SIZE	= 0,
+      TASK_PRIORITY	= 50,
+      TIME_SLICE	= 0,
+      BUSY_LAMP_OFF	= 0,
+      ABORT_REQUEST	= 0,
+      PAUSE_REQUEST	= 0;
+DEFAULT_GROUP	= 1,*,*,*,*;
+CONTROL_CODE	= 00000000 00000000;
+/MN
+   1:  PR[AR[1],1]=AR[2]    ;
+   2:  PR[AR[1],2]=AR[3]    ;
+   3:  PR[AR[1],3]=AR[4]    ;
+   4:  PR[AR[1],4]=0    ;
+   5:  PR[AR[1],5]=0    ;
+   6:  PR[AR[1],6]=0    ;
+/POS
+/END
